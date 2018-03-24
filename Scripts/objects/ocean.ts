@@ -4,34 +4,47 @@ module objects {
     private _dy: number;
 
     // public properties
-
     // Constructor
     constructor() {
       super(managers.Game.assetManager.getResult("ocean"));
+      if(managers.Game.currentScene == config.Scene.LEVEL2){
+        this.rotation = -270;
+        }
       this.Start();
     }
 
-    // private methods
-
-    // reset the objects location to some value
     private _reset():void {
-      this.y = -960;
+     
+      if(managers.Game.currentScene == config.Scene.LEVEL2){
+       this.x = 960;
+      }else{
+        this.y = -960;
+      }
     }
 
     // move the object to some new location
     private _move():void {
-      this.y += this._dy;
+
+      if(managers.Game.currentScene == config.Scene.LEVEL2){
+        this.x = this._dy-this._dy;
+      }else{
+        this.y += this._dy;
+      }
+
     }
+    
 
     // check to see if some boundary has been passed
     private _checkBounds():void {
       if(this.y >= 0) {
         this._reset();
       }
+      if(managers.Game.currentScene == config.Scene.LEVEL2){
+
+    }
     }
 
     // public methods
-
     // Initializes variables and creates new objects
     public Start():void {
       this._dy = 5;

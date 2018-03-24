@@ -1,9 +1,7 @@
 module objects {
   export class Island extends objects.GameObject {
     // private instance variables
-
     // public properties
-
     // Constructor
     constructor() {
       super("island");
@@ -11,9 +9,7 @@ module objects {
     }
 
     // private methods
-
     // public methods
-
     // Initializes variables and creates new objects
     public Start():void {
       this._dy = 5;
@@ -30,11 +26,29 @@ module objects {
     public Reset():void {
       this.x = Math.floor((Math.random() * (640 - this.width)) + this.halfWidth);
       this.y = -this.height;
+      if(managers.Game.currentScene == config.Scene.LEVEL2){
+        this.y = Math.floor((Math.random() * ((640) - this.height)) + this.halfHeight);
+        this.x = this.width + 480;
+      }
+      if(managers.Game.currentScene == config.Scene.LEVEL3){
+        this.y = Math.floor((Math.random() * ((640) - this.height)) + this.halfHeight);
+        this.x = this.width;
+      }
     }
 
     // move the object to some new location
     public Move():void {
-      this.y += this._dy;
+      if(managers.Game.currentScene == config.Scene.PLAY){
+        this.y += this._dy;
+      }
+
+      if(managers.Game.currentScene == config.Scene.LEVEL2){
+        this.x = this.x-this._dy;
+      }
+
+      if(managers.Game.currentScene == config.Scene.LEVEL3){
+        this.x += this._dy;
+      }
     }
 
     // check to see if some boundary has been passed
@@ -43,6 +57,16 @@ module objects {
       if(this.y >= 480 + this.height) {
         this.Reset();
       }
+      if(this.x <= this.width - 480) {
+        this.Reset();
+      }
+
+      if(managers.Game.currentScene == config.Scene.LEVEL3){
+        if(this.x >= this.width + 640) {
+          this.Reset();
+            
+        }
     }
   }
+}
 }
